@@ -22,12 +22,12 @@ int	ft_putptr(unsigned long int n)
 	hex_base = "0123456789abcdef";
 	i = 0;
 	count = 0;
-	count += ft_putstr("0x");
 	if (n == 0)
 	{
-		count += ft_putchar('0');
+		count += ft_putstr("(nil)");
 		return (count);
 	}
+	count += ft_putstr("0x");
 	while (n > 0)
 	{
 		hex[i++] = hex_base[n % 16];
