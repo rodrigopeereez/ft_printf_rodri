@@ -12,20 +12,20 @@
 
 #include "ft_printf.h"
 
-static int	function_management(char type, va_list storage)
+static int	function_management(char type, va_list args)
 {
 	if (type == 'c')
-		return (ft_putchar(va_arg(storage, int)));
+		return (ft_putchar(va_arg(args, int)));
 	if (type == 's')
-		return (ft_putstr(va_arg(storage, char *)));
+		return (ft_putstr(va_arg(args, char *)));
 	if (type == 'd' || type == 'i')
-		return (ft_putnbr(va_arg(storage, int)));
+		return (ft_putnbr(va_arg(args, int)));
 	if (type == 'u')
-		return (ft_putunsigned(va_arg(storage, unsigned int)));
+		return (ft_putunsigned(va_arg(args, unsigned int)));
 	if (type == 'x' || type == 'X')
-		return (ft_puthex(va_arg(storage, unsigned int), type));
+		return (ft_puthex(va_arg(args, unsigned int), type));
 	if (type == 'p')
-		return (ft_putptr(va_arg(storage, unsigned long int)));
+		return (ft_putptr(va_arg(args, unsigned long int)));
 	if (type == '%')
 		return (ft_putchar('%'));
 	return (0);
@@ -33,22 +33,22 @@ static int	function_management(char type, va_list storage)
 
 int	ft_printf(char const *str, ...)
 {
-	va_list	storage;
+	va_list	args;
 	int		i;
 	int		count;
 
-	va_start(storage, str);
+	va_start(args, str);
 	i = 0;
 	count = 0;
 	while (str[i])
 	{
 		if (str[i] == '%' && str[i + 1])
-			count += function_management(str[++i], storage);
+			count += function_management(str[++i], args);
 		else
 			count += ft_putchar(str[i]);
 		i++;
 	}
-	va_end(storage);
+	va_end(args);
 	return (count);
 }
 /*
